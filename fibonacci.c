@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-int results[MAX_N];
+#include "cache.h"
 
 int fibonacci_calculations(int number) {
     if (number == 0)
@@ -13,20 +13,10 @@ int fibonacci_calculations(int number) {
            (*fibonacci_provider)(number - 2);
 }
 
-int cache(int value) {
-    if (results[value] == NOT_PRESENT)
-        results[value] = (*fibonacci_provider)(value);
-    return results[value];
-}
-
-void cache_load(void) {
-    for (size_t i = 0; i < MAX_N; ++i)
-        results[i] = NOT_PRESENT;
-}
-
+// I figured it was not worth creating another file called main
 int main() {
     cache_load();
-    int n                             = 10;
+    int n                             = 11;
     fibonacci_provider                = fibonacci_calculations;
     ProviderFunction caching_provider = cache;
 
